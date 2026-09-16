@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ruhsam League Gazette — Week 2 Edition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f1ece0;
+    --paper-2: #e9e2d1;
+    --ink: #1c1a16;
+    --ink-soft: #4a453c;
+    --rule: #c9bfa8;
+    --rule-strong: #1c1a16;
+    --crimson: #8a1f2b;
+    --crimson-deep: #6b1620;
+    --gold: #9c7a34;
+    --win: #33593f;
+    --lose: #8a1f2b;
+    --card-bg: #e9e2d1;
+    --shadow: rgba(28, 26, 22, 0.12);
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --paper: #17140f;
+      --paper-2: #1e1a13;
+      --ink: #eee6d4;
+      --ink-soft: #c6bca6;
+      --rule: #4a4332;
+      --rule-strong: #eee6d4;
+      --crimson: #d9707d;
+      --crimson-deep: #e79aa4;
+      --gold: #d4b567;
+      --win: #7fbf94;
+      --lose: #d9707d;
+      --card-bg: #1e1a13;
+      --shadow: rgba(0, 0, 0, 0.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #17140f;
+    --paper-2: #1e1a13;
+    --ink: #eee6d4;
+    --ink-soft: #c6bca6;
+    --rule: #4a4332;
+    --rule-strong: #eee6d4;
+    --crimson: #d9707d;
+    --crimson-deep: #e79aa4;
+    --gold: #d4b567;
+    --win: #7fbf94;
+    --lose: #d9707d;
+    --card-bg: #1e1a13;
+    --shadow: rgba(0, 0, 0, 0.4);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 28px 20px 80px;
+  }
+
+  /* Masthead */
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .masthead {
+    text-align: center;
+    padding: 22px 0 14px;
+    border-bottom: 4px double var(--rule-strong);
+  }
+
+  .masthead h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(2.6rem, 8vw, 4.6rem);
+    margin: 0;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+  }
+
+  .masthead .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--crimson);
+    margin-bottom: 6px;
+  }
+
+  .masthead .sub {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin-top: 8px;
+  }
+
+  .section-band {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.14em;
+    font-size: 0.78rem;
+    padding: 7px 14px;
+    margin: 42px 0 18px;
+    display: inline-block;
+  }
+  [data-theme="dark"] .section-band, body:has(:root[data-theme="dark"]) .section-band {}
+
+  h2.headline {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: clamp(1.7rem, 4vw, 2.5rem);
+    line-height: 1.08;
+    margin: 6px 0 4px;
+  }
+
+  .dek {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    margin: 0 0 18px;
+    max-width: 70ch;
+  }
+
+  /* Lead story layout */
+  .lead-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .lead-grid { grid-template-columns: 1fr; }
+  }
+
+  .byline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .story p { margin: 0 0 14px; max-width: 62ch; }
+  .story p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 3.4em;
+    float: left;
+    line-height: 0.82;
+    padding: 3px 6px 0 0;
+    color: var(--crimson);
+  }
+
+  .stat-panel {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    padding: 16px 18px;
+  }
+  .stat-panel .panel-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    color: var(--crimson);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 0.92rem;
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row .label { color: var(--ink-soft); font-size: 0.78rem; }
+  .stat-row .value { font-weight: 600; text-align: right; }
+  .stat-row .value .num { font-family: 'IBM Plex Mono', monospace; color: var(--crimson); }
+
+  /* Box score columns */
+  .boxscores {
+    columns: 2;
+    column-gap: 32px;
+    margin-top: 8px;
+  }
+  @media (max-width: 720px) {
+    .boxscores { columns: 1; }
+  }
+
+  .matchup {
+    break-inside: avoid;
+    margin-bottom: 26px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .matchup:last-child { border-bottom: none; }
+
+  .matchup .score-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+    gap: 8px;
+  }
+  .matchup .score-line .name.win { color: var(--win); }
+  .matchup .score-line .name.lose { color: var(--ink-soft); font-weight: 600; }
+  .matchup .score-line .pts { font-family: 'IBM Plex Mono', monospace; font-size: 0.95rem; }
+
+  .matchup p {
+    margin: 0 0 8px;
+    font-size: 0.93rem;
+  }
+  .matchup .note {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+    border-left: 2px solid var(--gold);
+    padding-left: 10px;
+    margin: 8px 0;
+  }
+  .matchup .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 1px solid var(--rule);
+    padding: 3px 7px;
+    color: var(--ink-soft);
+  }
+  .tag.hot { border-color: var(--crimson); color: var(--crimson); }
+
+  /* Preview callouts */
+  .callout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 18px 0 6px;
+  }
+  @media (max-width: 640px) {
+    .callout-grid { grid-template-columns: 1fr; }
+  }
+  .callout {
+    border: 1px solid var(--rule);
+    padding: 16px;
+    background: var(--card-bg);
+  }
+  .callout .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    color: var(--crimson);
+    margin-bottom: 8px;
+  }
+  .callout .vs {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+  }
+  .callout p { margin: 0; font-size: 0.9rem; color: var(--ink-soft); }
+
+  /* The Board — agate table */
+  .board {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.88rem;
+  }
+  .board caption {
+    text-align: left;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+  }
+  .board th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: left;
+    border-bottom: 2px solid var(--rule-strong);
+    padding: 8px 10px;
+  }
+  .board td {
+    padding: 10px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .board .matchup-cell { font-family: 'Playfair Display', serif; font-weight: 600; }
+  .board .matchup-cell .vsw { color: var(--ink-soft); font-weight: 400; font-style: italic; font-size: 0.82rem; }
+  .board td.num, .board th.num { font-family: 'IBM Plex Mono', monospace; }
+  .board-wrap { overflow-x: auto; }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 16px;
+    border-top: 4px double var(--rule-strong);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead-top">
+    <span>THE RUHSAM LEAGUE</span>
+    <span>WEEK 2 · 2026 SEASON</span>
+  </div>
+
+  <div class="masthead">
+    <div class="kicker">THE OFFICIAL PAPER OF RECORD</div>
+    <h1>The Ruhsam League Gazette</h1>
+    <div class="sub">Week 1 in the books, Week 2 lines are up — here's everything owners need before kickoff.</div>
+  </div>
+
+  <!-- WEEK 1 RECAP -->
+  <span class="section-band">WEEK 1 &mdash; RECAP</span>
+
+  <div class="lead-grid">
+    <div class="story">
+      <div class="byline">Game of the Week &middot; League Desk</div>
+      <h2 class="headline">NutsInAKilt Opens With a Statement, donoj13 Survives a Photo Finish</h2>
+      <p class="dek">The week's top score, a nail-biter decided by 2.4 points, and a Caleb Williams masterclass that still wasn't enough to flip a loss.</p>
+      <p>NutsInAKilt posted the week's high score at 153.9, and it wasn't particularly close — Kenneth Walker's 32.6 anchored a 48.4-point beatdown of Salwine3, who left 17.6 points stranded on the bench and never had a real path back. Opened as barely a half-point favorite, NutsInAKilt turned it into the most lopsided result of the week.</p>
+      <p>Nobody had a rougher opening than leenick2881, whose 91.0 was the week's low score in a loss to GavinWagner10, even with Jahmyr Gibbs going for 31.1. And nobody had a better individual week than Caleb Williams, whose league-best performance (+48.4) still wasn't the difference in the closest game on the board.</p>
+      <p>That game belonged to donoj13, who needed every bit of Williams' 37.3 to edge Blarsen7787, 100.2-97.8 — a two-point win that the record book will remember as backed into more than earned. Blarsen7787 left 26.5 on the bench, enough to have won outright, a fate killy69 knows well after posting 128.3 and still falling to coryk17's 134.2, the week's unluckiest loss.</p>
+    </div>
+
+    <div class="stat-panel">
+      <div class="panel-title">WEEK 1 AT A GLANCE</div>
+      <div class="stat-row"><span class="label">Highest scorer</span><span class="value">NutsInAKilt <span class="num">153.9</span></span></div>
+      <div class="stat-row"><span class="label">Low of the week</span><span class="value">leenick2881 <span class="num">91.0</span></span></div>
+      <div class="stat-row"><span class="label">Top individual performer</span><span class="value">Caleb Williams <span class="num">+48.4</span></span></div>
+      <div class="stat-row"><span class="label">Unluckiest loss</span><span class="value">killy69 <span class="num">128.3</span></span></div>
+      <div class="stat-row"><span class="label">Backed in &amp; survived</span><span class="value">donoj13 <span class="num">100.2</span></span></div>
+    </div>
+  </div>
+
+  <span class="section-band">FULL BOX SCORES</span>
+
+  <div class="boxscores">
+
+    <div class="matchup">
+      <div class="score-line"><span class="name win">18bennolson</span><span class="pts">135.1</span></div>
+      <div class="score-line"><span class="name lose">cstrey</span><span class="pts">113.1</span></div>
+      <p>18bennolson won comfortably behind D'Andre Swift's 31.9. Ashton Jeanty paced the losing side with 29.7.</p>
+      <div class="note">Without Swift's 31.9, 18bennolson loses. cstrey left 26.3 on the bench &mdash; enough to have won.</div>
+      <div class="tags">
+        <span class="tag">Line: cstrey &minus;6.5</span>
+        <span class="tag hot">Underdog covered</span>
+        <span class="tag">O/U 242 &middot; Over</span>
+        <span class="tag hot">Nemesis: 18bennolson owns cstrey 1-0</span>
+      </div>
+    </div>
+
+    <div class="matchup">
+      <div class="score-line"><span class="name win">donoj13</span><span class="pts">100.2</span></div>
+      <div class="score-line"><span class="name lose">Blarsen7787</span><span class="pts">97.8</span></div>
+      <p>A photo finish. Caleb Williams led donoj13 with 37.3 &mdash; the week's top individual score; Lamar Jackson paced the losing side with 25.0.</p>
+      <div class="note">Without Williams' 37.3, donoj13 loses. Blarsen7787 left 26.5 on the bench &mdash; enough to have won.</div>
+      <div class="tags">
+        <span class="tag">Line: Blarsen7787 &minus;6.5</span>
+        <span class="tag hot">Underdog covered</span>
+        <span class="tag">O/U 230.5 &middot; Under</span>
+        <span class="tag hot">Nemesis: donoj13 owns Blarsen7787 1-0</span>
+      </div>
+    </div>
+
+    <div class="matchup">
+      <div class="score-line"><span class="name win">GavinWagner10</span><span class="pts">115.6</span></div>
+      <div class="score-line"><span class="name lose">leenick2881</span><span class="pts">91.0</span></div>
+      <p>GavinWagner10 won comfortably behind David Montgomery's 27.4. Jahmyr Gibbs paced the losing side with 31.1.</p>
+      <div class="note">Without Montgomery's 27.4, GavinWagner10 loses.</div>
+      <div class="tags">
+        <span class="tag">Line: GavinWagner10 &minus;3</span>
+        <span class="tag">Favorite covered</span>
+        <span class="tag">O/U 243.5 &middot; Under</span>
+        <span class="tag hot">Nemesis: GavinWagner10 owns leenick2881 1-0</span>
+      </div>
+    </div>
+
+    <div class="matchup">
+      <div class="score-line"><span class="name win">coryk17</span><span class="pts">134.2</span></div>
+      <div class="score-line"><span class="name lose">killy69</span><span class="pts">128.3</span></div>
+      <p>A nail-biter. Josh Allen led coryk17 with 35.7; Jalen Hurts paced the losing side with 24.7 in the week's unluckiest loss.</p>
+      <div class="note">Without Allen's 35.7, coryk17 loses. killy69 left 9.2 on the bench &mdash; enough to have won.</div>
+      <div class="tags">
+        <span class="tag">Line: killy69 &minus;12.5</span>
+        <span class="tag hot">Underdog covered</span>
+        <span class="tag">O/U 246.5 &middot; Over</span>
+        <span class="tag hot">Nemesis: coryk17 owns killy69 1-0</span>
+      </div>
+    </div>
+
+    <div class="matchup">
+      <div class="score-line"><span class="name win">SamSchneider34</span><span class="pts">110.8</span></div>
+      <div class="score-line"><span class="name lose">jakenieder</span><span class="pts">93.9</span></div>
+      <p>SamSchneider34 won comfortably behind Trevor Lawrence's 26.1. Derrick Henry paced the losing side with 34.8.</p>
+      <div class="note">Without Lawrence's 26.1, SamSchneider34 loses.</div>
+      <div class="tags">
+        <span class="tag">Line: SamSchneider34 &minus;5</span>
+        <span class="tag">Favorite covered</span>
+        <span class="tag">O/U 237 &middot; Under</span>
+        <span class="tag hot">Nemesis: SamSchneider34 owns jakenieder 1-0</span>
+      </div>
+    </div>
+
+    <div class="matchup">
+      <div class="score-line"><span class="name win">NutsInAKilt</span><span class="pts">153.9</span></div>
+      <div class="score-line"><span class="name lose">Salwine3</span><span class="pts">105.5</span></div>
+      <p>The week's top score, in a blowout. Kenneth Walker led the way with 32.6; Bijan Robinson paced the losing side with 27.3.</p>
+      <div class="note">Salwine3 left 17.6 on the bench.</div>
+      <div class="tags">
+        <span class="tag">Line: NutsInAKilt &minus;0.5</span>
+        <span class="tag">Favorite covered</span>
+        <span class="tag">O/U 238.5 &middot; Over</span>
+        <span class="tag hot">Nemesis: NutsInAKilt owns Salwine3 1-0</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- WEEK 2 PREVIEW -->
+  <span class="section-band">WEEK 2 &mdash; PREVIEW</span>
+
+  <h2 class="headline">A Coin-Flip and the Board's Biggest Total</h2>
+  <p class="dek">Two storylines anchor Sunday's slate, plus the full board of spreads, moneylines, and totals for every game.</p>
+
+  <div class="callout-grid">
+    <div class="callout">
+      <div class="eyebrow">TOSS-UP OF THE WEEK</div>
+      <div class="vs">donoj13 vs. jakenieder</div>
+      <p>Projected within a single point. donoj13 enters off a photo-finish win over Blarsen7787; jakenieder is coming off a loss to SamSchneider34. Line: donoj13 &minus;1, O/U 222.</p>
+    </div>
+    <div class="callout">
+      <div class="eyebrow">PROJECTED SHOOTOUT</div>
+      <div class="vs">NutsInAKilt vs. 18bennolson</div>
+      <p>The board's highest total at 259.5, pitting last week's two winners against each other. NutsInAKilt opens as a 7-point favorite off its 153.9-point blowout of Salwine3.</p>
+    </div>
+  </div>
+
+  <span class="section-band">THE BOARD</span>
+  <p style="font-style:italic; color:var(--ink-soft); margin-top:-6px; font-size:0.9rem;">Lines from Sleeper weekly projections, adjusted for scoring form.</p>
+
+  <div class="board-wrap">
+    <table class="board">
+      <thead>
+        <tr>
+          <th>Matchup</th>
+          <th>Spread</th>
+          <th>Moneyline</th>
+          <th class="num">O/U</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="matchup-cell">donoj13 <span class="vsw">vs</span> jakenieder</td>
+          <td>donoj13 &minus;1</td>
+          <td>donoj13 &minus;105 &middot; jakenieder +105</td>
+          <td class="num">222</td>
+        </tr>
+        <tr>
+          <td class="matchup-cell">NutsInAKilt <span class="vsw">vs</span> 18bennolson</td>
+          <td>NutsInAKilt &minus;7</td>
+          <td>NutsInAKilt &minus;170 &middot; 18bennolson +170</td>
+          <td class="num">259.5</td>
+        </tr>
+        <tr>
+          <td class="matchup-cell">GavinWagner10 <span class="vsw">vs</span> Blarsen7787</td>
+          <td>GavinWagner10 &minus;4</td>
+          <td>GavinWagner10 &minus;135 &middot; Blarsen7787 +135</td>
+          <td class="num">235</td>
+        </tr>
+        <tr>
+          <td class="matchup-cell">leenick2881 <span class="vsw">vs</span> SamSchneider34</td>
+          <td>leenick2881 &minus;3.5</td>
+          <td>leenick2881 &minus;130 &middot; SamSchneider34 +130</td>
+          <td class="num">231.5</td>
+        </tr>
+        <tr>
+          <td class="matchup-cell">Salwine3 <span class="vsw">vs</span> coryk17</td>
+          <td>coryk17 &minus;7</td>
+          <td>coryk17 &minus;170 &middot; Salwine3 +170</td>
+          <td class="num">233</td>
+        </tr>
+        <tr>
+          <td class="matchup-cell">cstrey <span class="vsw">vs</span> killy69</td>
+          <td>killy69 &minus;4</td>
+          <td>killy69 &minus;135 &middot; cstrey +135</td>
+          <td class="num">239</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <span>THE RUHSAM LEAGUE GAZETTE &middot; 2026 SEASON</span>
+    <span>SOURCE: RUHSAM LEAGUE FANTASY ALMANAC / SLEEPER API</span>
+  </footer>
+
+</div>
+</body>
+</html>
